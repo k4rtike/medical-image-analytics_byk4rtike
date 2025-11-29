@@ -49,11 +49,11 @@ model = genai.GenerativeModel(
     system_instruction=system_prompt,
 )
 
-st.set_page_config(page_title="DiseaseImage Analytics", page_icon=":robot:")
+st.set_page_config(page_title="k4rtike's Compounder", page_icon=":robot:")
 
 # Set the title
-st.title("Medical Image Analytics")
-st.subheader("An application that can help users to identify medical images")
+st.title("k4rtike's Compounder")
+st.subheader("When your docotor is'nt available who is going to help you? That's right it's me!;)")
 
 uploaded_file = st.file_uploader("Upload the medical image for analysis", type=["png", "jpg", "jpeg"])
 
@@ -181,3 +181,4 @@ if st.session_state.history:
                 
         except Exception as e:
             st.error(f"An error occurred during follow-up: {e}")
+
