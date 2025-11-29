@@ -1,9 +1,28 @@
 import streamlit as st
 from pathlib import Path
 import google.generativeai as genai
-from api_key import api_key
 
 # Configure genAI with API key
+api_key = None
+try:
+    from api_key import api_key
+except ImportError:
+    pass
+
+# Try to get from st.secrets if not found in api_key.py or if we want to prioritize secrets
+# Note: accessing st.secrets might fail if no secrets.toml exists locally, 
+# but usually it returns an empty dict-like object or raises FileNotFoundError depending on version.
+# Safest way:
+try:
+    if not api_key and "api_key" in st.secrets:
+        api_key = st.secrets["api_key"]
+except (FileNotFoundError, KeyError):
+    pass
+
+if not api_key:
+    st.error("API Key not found. Please set it in Streamlit secrets or api_key.py")
+    st.stop()
+
 genai.configure(api_key=api_key)
 
 # Set up the model
